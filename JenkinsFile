@@ -4,12 +4,13 @@ pipeline{
 	stage('checkout'){
 	steps{
 	echo "Cloning repo"
-	bat
+	git url:"https://github.com/vaishnavikarra/Week-8-DJ.git",
+	branch:'master'
 	}
 	}
-	stage('build'){
+	stage('Build'){
 	steps{
-	echo "Build Docker image"
+	echo "Build Docker Image"
 	bat "docker build -t webapplc."
 	}
 	}
@@ -17,16 +18,16 @@ pipeline{
 	steps{
 	echo "Run application in Docker Container"
 	bat "docker rm -f quizzical_ramanujan || exit 0"
-	bat "docker run -d -p 5000:5000 --name quizzical_ramanujan webapplc"
+	bat "docker run -d -p 5001:5001 --name quizzical_ramanujan webapplc"
 	}
 	}
 	}
 	post{
-	success{
-	echo 'Pipeline completed successfully!'
+	Success{
+	echo "Pipeline completed successfully!"
 	}
-	failure{
-	echo 'Pipeline failed.Please check the logs'
+	Failure{
+	echo "Pipeline failed.Please check the logs"
 	}
 	
 	}
