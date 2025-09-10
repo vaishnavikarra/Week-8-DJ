@@ -23,11 +23,11 @@ pipeline{
 	}
 	}
 	post{
-	Success{
-	echo "Pipeline completed successfully!"
+	success{
+	echo 'Pipeline completed successfully!'
 	}
-	Failure{
-	echo "Pipeline failed.Please check the logs"
+	failure{
+	echo 'Pipeline failed.Please check the logs'
 	}
 	
 	}
