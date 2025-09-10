@@ -1,0 +1,33 @@
+pipeline{
+	agent any
+	stages{
+	stage('checkout'){
+	steps{
+	echo "Cloning repo"
+	bat
+	}
+	}
+	stage('build'){
+	steps{
+	echo "Build Docker image"
+	bat "docker build -t webapplc."
+	}
+	}
+	stage('Run'){
+	steps{
+	echo "Run application in Docker Container"
+	bat "docker rm -f quizzical_ramanujan || exit 0"
+	bat "docker run -d -p 5000:5000 --name quizzical_ramanujan webapplc"
+	}
+	}
+	}
+	post{
+	success{
+	echo 'Pipeline completed successfully!'
+	}
+	failure{
+	echo 'Pipeline failed.Please check the logs'
+	}
+	
+	}
+}
